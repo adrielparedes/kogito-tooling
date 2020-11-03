@@ -18,6 +18,8 @@ import { backendI18nDefaults, backendI18nDictionaries } from "@kogito-tooling/ba
 import { registerTestScenarioRunnerCommand, VsCodeBackendProxy } from "@kogito-tooling/backend/dist/vscode";
 import { I18n } from "@kogito-tooling/i18n/dist/core";
 import * as KogitoVsCode from "@kogito-tooling/vscode-extension";
+import { KogitoAlertsPanel } from "@kogito-tooling/vscode-extension/dist/panel/KogitoAlertsPanel";
+import { KogitoPanel } from "@kogito-tooling/vscode-extension/dist/panel/KogitoPanel";
 import { VsCodeWorkspaceApi } from "@kogito-tooling/workspace/dist/vscode";
 import * as vscode from "vscode";
 
@@ -48,13 +50,30 @@ export async function activate(context: vscode.ExtensionContext) {
     editorEnvelopeLocator: {
       targetOrigin: envelopeTargetOrigin,
       mapping: new Map([
-        ["bpmn", { resourcesPathPrefix: "dist/webview/editors/bpmn", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }],
-        ["bpmn2", { resourcesPathPrefix: "dist/webview/editors/bpmn", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }],
-        ["dmn", { resourcesPathPrefix: "dist/webview/editors/dmn", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }],
-        ["scesim", { resourcesPathPrefix: "dist/webview/editors/scesim", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }]
+        [
+          "bpmn",
+          { resourcesPathPrefix: "dist/webview/editors/bpmn", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }
+        ],
+        [
+          "bpmn2",
+          { resourcesPathPrefix: "dist/webview/editors/bpmn", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }
+        ],
+        [
+          "dmn",
+          { resourcesPathPrefix: "dist/webview/editors/dmn", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }
+        ],
+        [
+          "scesim",
+          { resourcesPathPrefix: "dist/webview/editors/scesim", envelopePath: "dist/webview/GwtEditorsEnvelopeApp.js" }
+        ]
       ])
     },
     backendProxy: backendProxy
+  });
+
+  KogitoVsCode.startPanels({
+    context: context,
+    panels: [new KogitoAlertsPanel("alerts-panel", "dist/webview/AlertsPanelViewApp.js")]
   });
 
   console.info("Extension is successfully setup.");

@@ -47,6 +47,7 @@ module.exports = [
     target: "web",
     entry: {
       "webview/GwtEditorsEnvelopeApp": "./src/webview/GwtEditorsEnvelopeApp.ts"
+      // "webview/AlertsPanelViewApp": "./src/webview/AlertsPanelViewApp.ts"
     },
     module: {
       rules: [...pfWebpackOptions.patternflyRules]

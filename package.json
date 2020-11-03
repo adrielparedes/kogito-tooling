@@ -34,7 +34,7 @@
     "@types/react-router": "5.1.1",
     "@types/react-router-dom": "5.1.1",
     "@types/selenium-webdriver": "^4.0.9",
-    "@types/vscode": "^1.46.0",
+    "@types/vscode": "^1.50.0",
     "babel-loader": "8.0.6",
     "chromedriver": "^85.0.0",
     "circular-dependency-plugin": "5.2.0",

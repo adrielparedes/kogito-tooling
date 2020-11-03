@@ -25,6 +25,8 @@ import { vsCodeI18nDefaults, vsCodeI18nDictionaries } from "./i18n";
 import { KogitoEditorFactory } from "./KogitoEditorFactory";
 import { KogitoEditorStore } from "./KogitoEditorStore";
 import { KogitoEditorWebviewProvider } from "./KogitoEditorWebviewProvider";
+import { KogitoPanel } from "./panel/KogitoPanel";
+import { KogitoPanelWebviewProvider } from "./panel/KogitoPanelWebviewProvider";
 
 /**
  * Starts a Kogito extension.
@@ -75,4 +77,17 @@ export async function startExtension(args: {
   args.context.subscriptions.push(
     vscode.commands.registerCommand(args.getPreviewCommandId, () => generateSvg(editorStore, workspaceApi, vsCodeI18n))
   );
+}
+
+export async function startPanels(args: { context: vscode.ExtensionContext; panels: KogitoPanel[] }) {
+  const vsCodeI18n = new I18n(vsCodeI18nDefaults, vsCodeI18nDictionaries, vscode.env.language);
+
+  args.panels.forEach(panel => {
+    args.context.subscriptions.push(
+      vscode.window.registerWebviewViewProvider(
+        panel.getViewType(),
+        new KogitoPanelWebviewProvider(args.context, panel, vsCodeI18n)
+      )
+    );
+  });
 }
