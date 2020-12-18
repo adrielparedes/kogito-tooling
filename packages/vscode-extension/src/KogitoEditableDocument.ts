@@ -28,6 +28,7 @@ import { KogitoEdit } from "@kogito-tooling/channel-common-api";
 import { KogitoEditor } from "./KogitoEditor";
 import { VsCodeI18n } from "./i18n";
 import { I18n } from "@kogito-tooling/i18n/dist/core";
+import { VsCodeNotificationsApi } from "@kogito-tooling/notifications/src/vscode/VsCodeNotificationsApi";
 
 export class KogitoEditableDocument implements CustomDocument {
   private readonly encoder = new TextEncoder();
@@ -43,7 +44,8 @@ export class KogitoEditableDocument implements CustomDocument {
     public readonly uri: Uri,
     public readonly initialBackup: Uri | undefined,
     public readonly editorStore: KogitoEditorStore,
-    private readonly vsCodeI18n: I18n<VsCodeI18n>
+    private readonly vsCodeI18n: I18n<VsCodeI18n>,
+    private readonly vsCodeNotifications: VsCodeNotificationsApi
   ) {}
 
   public dispose() {
@@ -68,6 +70,9 @@ export class KogitoEditableDocument implements CustomDocument {
         console.error(`Cannot save because there's no open Editor for ${this.uri.fsPath}`);
         return;
       }
+
+      const notifications = await editor.validate();
+      this.vsCodeNotifications.setNotifications(destination.fsPath, notifications);
 
       const content = await editor.getContent();
       if (cancellation.isCancellationRequested) {

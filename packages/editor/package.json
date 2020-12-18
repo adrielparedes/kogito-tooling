@@ -19,7 +19,8 @@
     "@kogito-tooling/guided-tour": "0.8.2",
     "@kogito-tooling/i18n": "0.8.2",
     "@kogito-tooling/keyboard-shortcuts": "0.8.2",
-    "@kogito-tooling/workspace": "0.8.2"
+    "@kogito-tooling/workspace": "0.8.2",
+    "@kogito-tooling/notifications": "0.8.2"
   },
   "scripts": {
     "lint": "tslint -c ../../tslint.json 'src/**/*.{ts,tsx,js,jsx}'",

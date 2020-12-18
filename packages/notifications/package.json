@@ -1,5 +1,5 @@
 {
-  "name": "@kogito-tooling/backend",
+  "name": "@kogito-tooling/notifications",
   "version": "0.8.2",
   "description": "",
   "license": "Apache-2.0",
@@ -10,32 +10,26 @@
     "type": "git",
     "url": "https://github.com/kiegroup/kogito-tooling.git"
   },
-  "dependencies": {
-    "@kogito-tooling/i18n": "0.8.2",
-    "@kogito-tooling/i18n-common-dictionary": "0.8.2",
-    "@kogito-tooling/workspace": "0.8.2",
-    "@kogito-tooling/notifications": "0.8.2",
-    "@types/semver": "^7.3.3",
-    "axios": "^0.19.2",
-    "fast-xml-parser": "^3.17.4",
-    "portfinder": "^1.0.27"
-  },
-  "devDependencies": {
-    "@types/sinon": "9.0.3",
-    "sinon": "9.0.3"
-  },
   "scripts": {
     "lint": "tslint -c ../../tslint.json 'src/**/*.{ts,tsx,js,jsx}'",
-    "test": "jest --silent --verbose",
+    "test": "jest --passWithNoTests",
     "test:clearCache": "jest --clearCache",
     "build:fast": "rm -rf dist && webpack",
     "build": "yarn run lint && yarn test && yarn run build:fast",
     "build:prod": "yarn run build --mode production --devtool none"
+  },
+  "dependencies": {
+    "@kogito-tooling/workspace": "0.8.2",
+    "@kogito-tooling/i18n": "0.8.2",
+    "@kogito-tooling/i18n-common-dictionary": "0.8.2"
   },
   "babel": {
     "presets": [
       "@babel/env",
       "@babel/react"
     ]
+  },
+  "jest-junit": {
+    "outputDirectory": "./target"
   }
 }
